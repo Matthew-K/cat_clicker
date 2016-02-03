@@ -77,13 +77,14 @@ function addCat(name, url){
 function Cat (name, url){
 	this.name = name;
 	this.url = url;
+	this.clickNumber = 0;
 } 
 
 addCat("Fred", "images/cat.jpg");
 addCat("Mittens", "images/cat2.jpg");
 addCat("Belleh", "images/cat3.jpg");
-addCat("Cotton", "images/cat3.jpg");
-addCat("William", "images/cat3.jpg");
+addCat("Cotton", "images/cat4.jpg");
+addCat("William", "images/cat5.jpg");
 
 //input catList and return a list of strings as if they are buttons in HTML format
 function buttonReady(array){
