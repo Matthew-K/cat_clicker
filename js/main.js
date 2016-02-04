@@ -104,12 +104,14 @@ function createUlList (array){
 	for (var i = 0; i < array.length; i++){
 		listItem = document.createElement('li');
 		listItem.innerHTML = array[i];
+		name = catList[i].name;
+		listItem.id = catList[i].name;
 		firstEl.appendChild(listItem);
 	}
 	return firstEl;
 }
 
-catList = createUlList(catButtons);
+catButtonList = createUlList(catButtons);
 
 //input list and the id you want to insert list into
 function insertList(list, id){
@@ -117,4 +119,37 @@ function insertList(list, id){
 	parent.appendChild(list);
 }
 
-insertList(catList, 'catButtons');
+insertList(catButtonList, 'catButtons');
+
+function createButtonHandlers2(array){
+	for (var i = 0; i < array.length; i++){
+		(function(j){
+			var name = array[j].name;
+			var id = document.getElementById(name);
+			var image = document.getElementById("catImage");
+			var clickTitle = document.getElementById("nameInsert");
+			var clickCount = document.getElementById("clickCount");
+			var url = array[j].url;
+			id.addEventListener("click", (function() {
+				title = document.getElementById("catNameTitle");
+				title.innerHTML = name;
+				image.src = url;
+				image.id = name + "Pic";
+				console.log(image.id);
+				clickTitle.innerHTML = name;
+				clickCount.innerHTML = array[j].clickNumber;
+				fullImage = document.getElementById(image.id);
+				console.log(fullImage);
+				fullImage.addEventListener("click",(function(){
+					console.log("click worked");
+					console.log(fullImage);
+					array[j].clickNumber += 1;
+					clickCount.innerHTML = array[j].clickNumber;
+				}));
+			}));
+		}(i));
+	}
+}
+
+createButtonHandlers2(catList);		
+
