@@ -1,5 +1,6 @@
 var catList = [];
 
+
 //change cat and his image url into a Cat object and add it to catList
 function addCat(name, url){
  	var addThis = new Cat(name, url);
@@ -19,7 +20,7 @@ addCat("Belleh", "images/cat3.jpg");
 addCat("Cotton", "images/cat4.jpg");
 addCat("William", "images/cat5.jpg");
 
-//input catList and return a list of strings as if they are buttons in HTML format
+//input catList and return an array of strings as if they are buttons in HTML format
 function buttonReady(array){
 	buttons = [];
 	for (var i = 0; i < array.length; i++){
@@ -29,9 +30,10 @@ function buttonReady(array){
 	return buttons;
 }
 
+//array of button-ready markup for each cat in catList
 var catButtons = buttonReady(catList);
 
-//input list of button ready strings and return an HTML list
+//input array of button ready strings and return an HTML list
 function createUlList (array){
 	firstEl = document.createElement('ul');
 	for (var i = 0; i < array.length; i++){
@@ -44,9 +46,10 @@ function createUlList (array){
 	return firstEl;
 }
 
+//html list of cat buttons
 catButtonList = createUlList(catButtons);
 
-//input list and the id you want to insert list into
+//input html list and the id you want to insert list into
 function insertList(list, id){
 	var parent = document.getElementById(id);
 	parent.appendChild(list);
