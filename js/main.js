@@ -33,7 +33,7 @@ function buttonReady(array){
 //array of button-ready markup for each cat in catList
 var catButtons = buttonReady(catList);
 
-//input array of button ready strings and return an HTML list
+//input array of button ready strings and return an HTML list. Each button gets an id corresponding to the cat's name
 function createUlList (array){
 	firstEl = document.createElement('ul');
 	for (var i = 0; i < array.length; i++){
@@ -55,34 +55,46 @@ function insertList(list, id){
 	parent.appendChild(list);
 }
 
+//list inserted inside div with id of "catButtons"
 insertList(catButtonList, 'catButtons');
 
+//creates click handlers for each button. Pressing a button will change the name above the image, the cat image,
+//the name in the sentence above the click count, and the click count itself. All of these correspond to the cat 
+//the button represents
 function createButtonHandlers2(array){
 	for (var i = 0; i < array.length; i++){
 		(function(j){
 			var name = array[j].name;
 			var id = document.getElementById(name);
-			var image = document.getElementById("catImage");
-			var clickTitle = document.getElementById("nameInsert");
-			var clickCount = document.getElementById("clickCount");
-			var url = array[j].url;
 			id.addEventListener("click", (function() {
-				title = document.getElementById("catNameTitle");
-				title.innerHTML = name;
-				image.src = url;
-				image.id = name + "Pic";
+
+				picTitle = document.getElementById("catNameTitle");
+				picTitle.innerHTML = name;
+
+				var image = document.getElementsByClassName("catImage");
+				var imageSrc = array[j].url;
+				image[0].src = imageSrc;
+				//an id is created for each picture, this will be used for click handler catImage.addEventListener
+				image[0].id = name.toLowerCase() + "Pic";
+
+				var clickTitle = document.getElementById("nameInsert");
 				clickTitle.innerHTML = name;
+
+				var clickCount = document.getElementById("clickCount");
 				clickCount.innerHTML = array[j].clickNumber;
-				fullImage = document.getElementById(image.id);
-				fullImage.addEventListener("click",(function(){
-					console.log("click worked");
-					console.log(fullImage);
-					array[j].clickNumber += 1;
-					clickCount.innerHTML = array[j].clickNumber;
-				}));
 			}));
 		}(i));
 	}
 }
 
 createButtonHandlers2(catList);		
+
+var catImage = document.getElementsByClassName("catImage");
+
+var catImage = catImage[0];
+
+catImage.addEventListener("click", function(){
+	console.log("click worked");
+	id = (catImage.id);
+	console.log(id);
+});
