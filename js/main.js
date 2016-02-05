@@ -12,7 +12,7 @@ function Cat (name, url){
 	this.name = name;
 	this.url = url;
 	this.clickNumber = 0;
-	this.imageId = name.toLowerCase() + "Pic"
+	this.imageId = name.toLowerCase() + "Pic";
 } 
 
 addCat("Fred", "images/cat.jpg");
@@ -72,16 +72,12 @@ function createButtonHandlers(array){
 			var name = array[j].name;
 			var id = document.getElementById(name);
 			id.addEventListener("click", (function() {
-
 				picTitle = document.getElementById("catNameTitle");
 				picTitle.innerHTML = name;
-
 				catImage.src = array[j].url;
 				catImage.id = array[j].imageId;
-
 				var clickTitle = document.getElementById("nameInsert");
 				clickTitle.innerHTML = name;
-
 				clickCount.innerHTML = array[j].clickNumber;
 			}));
 		}(i));
@@ -90,13 +86,13 @@ function createButtonHandlers(array){
 
 createButtonHandlers(catList);		
 
+
 catImage.addEventListener("click", function(){
 	var id = (catImage.id);
 	var i;
 	for (i in catList){
 		if (id === catList[i].imageId){
 			catList[i].clickNumber += 1;
-			console.log(catList[i].clickNumber);
 			clickCount.innerHTML = catList[i].clickNumber;
 			break;
 		}
