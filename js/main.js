@@ -12,6 +12,7 @@ function Cat (name, url){
 	this.name = name;
 	this.url = url;
 	this.clickNumber = 0;
+	this.imageId = name.toLowerCase() + "Pic"
 } 
 
 addCat("Fred", "images/cat.jpg");
@@ -58,10 +59,14 @@ function insertList(list, id){
 //list inserted inside div with id of "catButtons"
 insertList(catButtonList, 'catButtons');
 
+var clickCount = document.getElementById("clickCount");
+var catImage = document.getElementsByClassName("catImage");
+catImage = catImage[0];
+
 //creates click handlers for each button. Pressing a button will change the name above the image, the cat image,
 //the name in the sentence above the click count, and the click count itself. All of these correspond to the cat 
 //the button represents
-function createButtonHandlers2(array){
+function createButtonHandlers(array){
 	for (var i = 0; i < array.length; i++){
 		(function(j){
 			var name = array[j].name;
@@ -71,30 +76,29 @@ function createButtonHandlers2(array){
 				picTitle = document.getElementById("catNameTitle");
 				picTitle.innerHTML = name;
 
-				var image = document.getElementsByClassName("catImage");
-				var imageSrc = array[j].url;
-				image[0].src = imageSrc;
-				//an id is created for each picture, this will be used for click handler catImage.addEventListener
-				image[0].id = name.toLowerCase() + "Pic";
+				catImage.src = array[j].url;
+				catImage.id = array[j].imageId;
 
 				var clickTitle = document.getElementById("nameInsert");
 				clickTitle.innerHTML = name;
 
-				var clickCount = document.getElementById("clickCount");
 				clickCount.innerHTML = array[j].clickNumber;
 			}));
 		}(i));
 	}
 }
 
-createButtonHandlers2(catList);		
-
-var catImage = document.getElementsByClassName("catImage");
-
-var catImage = catImage[0];
+createButtonHandlers(catList);		
 
 catImage.addEventListener("click", function(){
-	console.log("click worked");
-	id = (catImage.id);
-	console.log(id);
+	var id = (catImage.id);
+	var i;
+	for (i in catList){
+		if (id === catList[i].imageId){
+			catList[i].clickNumber += 1;
+			console.log(catList[i].clickNumber);
+			clickCount.innerHTML = catList[i].clickNumber;
+			break;
+		}
+	}
 });
