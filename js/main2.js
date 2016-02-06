@@ -53,6 +53,8 @@ var controller = {
 		number ++;
 		cat.clickNumber = number;
 	},
+
+	currentCats: model.catList
 };
 
 
@@ -92,10 +94,10 @@ var view = {
 		catImage.addEventListener("click", function(){
 			var id = (catImage.id);
 			var i;
-			for (i in model.catList){
-				if (id === model.catList[i].imageId){
-					controller.increaseClickCount(model.catList[i]);
-					view.renderClickCount(model.catList[i]);
+			for (i in controller.currentCats){
+				if (id === controller.currentCats[i].imageId){
+					controller.increaseClickCount(controller.currentCats[i]);
+					view.renderClickCount(controller.currentCats[i]);
 					break;
 				}
 			}
@@ -107,13 +109,13 @@ var view = {
 	},
 
 	listRender: function(){
-		var catButtons = controller.buttonReady(model.catList);
+		var catButtons = controller.buttonReady(controller.currentCats);
 		var catButtonList = controller.createUlList(catButtons);
 		this.insertList(catButtonList, this.catButtons);
 	},
 
 	imageAndClickRender: function(){
-		view.createButtonHandlers(model.catList);
+		view.createButtonHandlers(controller.currentCats);
 		view.createImageEventListeners(view.catImage);
 	}
 
