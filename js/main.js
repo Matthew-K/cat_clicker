@@ -14,6 +14,7 @@ var model = {
 	 	var addThis = new model.Cat(name, url);
 	 	model.catList.push(addThis);
 	},
+	currentCat: null,
 
 	showAdminSettings: false
 };
@@ -25,7 +26,7 @@ var controller = {
 
 	init: function(){
 		view.listRender();
-		view.imageAndClickRender();
+		view.imageAndButtonRender();
 		view.removeAdminSettings();
 		view.createAdminHandler();
 		view.createCancelHandler();
@@ -70,6 +71,15 @@ var controller = {
 	turnOnAdmin: function(){
 		model.showAdminSettings = true;
 		view.renderAdminSettings();
+	},
+
+	setCurrentCat: function(position){
+		model.currentCat = model.catList[position];
+		console.log(model.currentCat.name);
+	},
+
+	getCurrentCat: function(){
+		return model.currentCat;
 	}
 
 
@@ -96,6 +106,7 @@ var view = {
 				var name = array[j].name;
 				var id = document.getElementById(name);
 				id.addEventListener("click", (function() {
+					controller.setCurrentCat(j);
 					picTitle = document.getElementById("catNameTitle");
 					picTitle.innerHTML = name;
 					view.catImage.src = array[j].url;
@@ -132,7 +143,7 @@ var view = {
 		this.insertList(catButtonList, this.catButtons);
 	},
 
-	imageAndClickRender: function(){
+	imageAndButtonRender: function(){
 		view.createButtonHandlers(controller.currentCats);
 		view.createImageEventListeners(view.catImage);
 	},
@@ -143,6 +154,10 @@ var view = {
 
 	renderAdminSettings: function(){
 		document.getElementById("form").style.display = "block";
+		var nameValue = document.getElementById("name").setAttribute("value", "1");
+		var urlValue = document.getElementById("url").setAttribute("value", "2");
+		var idValue = document.getElementById("id").setAttribute("value", "3");
+		var clicksValue = document.getElementById("clicks").setAttribute("value", "4");
 	},
 
 	createAdminHandler: function(){
@@ -175,6 +190,10 @@ model.addCat("William", "images/cat5.jpg");
 controller.init();
 
 
+console.log(document.getElementById("name"))
+console.log(document.getElementById("url"))
+console.log(document.getElementById("id"))
+console.log(document.getElementById("clicks"))
 /*
 if showForm = false
 	document.getElementById("form").style.display = "none";
