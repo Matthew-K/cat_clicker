@@ -120,6 +120,9 @@ var view = {
 	}
 
 
+	
+
+
 };
 
 //initial cats
@@ -131,3 +134,65 @@ model.addCat("William", "images/cat5.jpg");
 
 //start program
 controller.init();
+
+
+/*
+if showForm = false
+	document.getElementById("form").style.display = "none";
+else
+	document.getElementById("form").style.display = "block";
+*/
+
+/*
+click admin button
+	turn admin to true
+
+======================================================================
+
+model:
+	showForm = null
+
+======================================================================
+
+octopus:
+	init:
+		showForm = false
+
+	turnformtoTrueFunction:
+		showerForm = true;
+		view.render function
+
+	turnFormtoFalse:
+		showForm = false
+		view.render function
+
+	update stats:
+		take form ids and put them into the catList
+		showForm = False
+
+======================================================================
+
+view:
+	
+
+
+	render function:
+		if showForm = false
+			document.getElementById("form").style.display = "none";
+	else
+		document.getElementById("form").style.display = "block";
+
+	function:
+		add click listener to admin button
+			if clicked
+				octopus.turnFormtoTrueFunction = True
+
+	function: 
+		add click listeners to save and cancel buttons:
+			if save is clicked
+				octopus.updatestats
+			if cancel clicked:
+				octopus.turnFormtoFalse
+
+
+*/
