@@ -7,6 +7,7 @@ var model = {
 		this.url = url;
 		this.clickNumber = 0;
 		//this.imageId = name.toLowerCase() + "Pic";
+		this.imageId = name;
 	},
 
 	//add cat to model.catList by using model.Cat constructor
@@ -14,8 +15,8 @@ var model = {
 	 	var addThis = new model.Cat(name, url);
 	 	model.catList.push(addThis);
 	},
-	currentCat: null,
 
+	currentCat: null,
 	showAdminSettings: false
 };
 
@@ -86,6 +87,12 @@ var controller = {
 		clickNumber = cat.clickNumber;
 		clickNumber++;
 		cat.clickNumber = clickNumber;
+	},
+
+	updateCurrentCat: function(values){
+		model.currentCat.name = values.name;
+		model.currentCat.url = values.url;
+		model.currentCat.clickNumber = values.clickNumber;
 	}
 
 
@@ -189,14 +196,43 @@ var view = {
 
 	createSaveHandler: function(){
 		document.getElementById("save").addEventListener("click", function(){
-			console.log("save clicked");
-			var form = document.getElementById("form");
-			form.classList.toggle("saved");
-			setTimeout(function(){
-				form.classList.toggle("saved");
-			},100);
+			view.flashSave();
+			values = view.getInputValues();
+			controller.updateCurrentCat(values);
+			var cat = controller.getCurrentCat();
+			view.renderImage(cat);
+			view.changeButtonName(cat);
+			view.renderPicTitle(cat);
+			view.renderClickTitle(cat);
+			view.renderClickCount(cat.clickNumber);
 		});
-	}
+	},
+
+	changeButtonName: function(cat){
+		var listItem = document.getElementById(cat.imageId);
+		var button = listItem.firstElementChild;
+		button.innerHTML = cat.name;
+		listItem.id = cat.name;
+		cat.imageId = cat.name;
+		//fix model view controller regarding cat
+	},
+
+	flashSave: function(){
+		var form = document.getElementById("form");
+		form.classList.toggle("saved");
+		setTimeout(function(){
+			form.classList.toggle("saved");
+		},100);
+	},
+
+	getInputValues: function(){
+		var values = {
+		name: document.getElementById('name').value, 
+		url: document.getElementById("url").value,
+		clickNumber: document.getElementById("clicks").value 
+		};
+		return values;
+	},
 
 
 
@@ -214,12 +250,6 @@ model.addCat("William", "images/cat5.jpg");
 //start program
 controller.init();
 
-/*
-console.log(document.getElementById("name"))
-console.log(document.getElementById("url"))
-console.log(document.getElementById("id"))
-console.log(document.getElementById("clicks"))
-*/
 /*
 if showForm = false
 	document.getElementById("form").style.display = "none";
