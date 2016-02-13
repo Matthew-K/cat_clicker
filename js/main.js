@@ -118,7 +118,7 @@ var view = {
 					view.renderImage(currentCat);
 					view.renderClickTitle(currentCat);
 					view.renderClickCount(currentCat.clickNumber);
-
+					view.updateAdminSettings(currentCat);
 				}));
 			}(i));
 		}
@@ -141,6 +141,7 @@ var view = {
 			var currentCat = controller.getCurrentCat();
 			controller.increaseClick(currentCat);
 			view.renderClickCount(currentCat.clickNumber);
+			view.updateAdminSettings(currentCat);
 		});
 	},
 
@@ -163,12 +164,18 @@ var view = {
 		document.getElementById("form").style.display = "none";
 	},
 
+	updateAdminSettings: function(cat){
+		var nameValue = document.getElementById("name").setAttribute("value", cat.name);
+		var urlValue = document.getElementById("url").setAttribute("value", cat.url);
+		var clicksValue = document.getElementById("clicks").setAttribute("value", cat.clickNumber);
+	},
+
 	renderAdminSettings: function(){
 		document.getElementById("form").style.display = "block";
-		var nameValue = document.getElementById("name").setAttribute("value", "1");
-		var urlValue = document.getElementById("url").setAttribute("value", "2");
-		//var idValue = document.getElementById("id").setAttribute("value", "3");
-		var clicksValue = document.getElementById("clicks").setAttribute("value", "3");
+		//cat = controller.getCurrentCat();
+		//var nameValue = document.getElementById("name").setAttribute("value", cat.name);
+		//var urlValue = document.getElementById("url").setAttribute("value", cat.url);
+		//var clicksValue = document.getElementById("clicks").setAttribute("value", cat.clickNumber);
 	},
 
 	createAdminHandler: function(){
@@ -182,6 +189,7 @@ var view = {
 			controller.turnOffAdmin();
 		});
 	}
+
 
 
 
