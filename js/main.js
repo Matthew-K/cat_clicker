@@ -6,7 +6,7 @@ var model = {
 		this.name = name;
 		this.url = url;
 		this.clickNumber = 0;
-		this.imageId = name.toLowerCase() + "Pic";
+		//this.imageId = name.toLowerCase() + "Pic";
 	},
 
 	//add cat to model.catList by using model.Cat constructor
@@ -75,11 +75,16 @@ var controller = {
 
 	setCurrentCat: function(position){
 		model.currentCat = model.catList[position];
-		console.log(model.currentCat.name);
 	},
 
 	getCurrentCat: function(){
 		return model.currentCat;
+	},
+
+	increaseClick: function(cat){
+		clickNumber = cat.clickNumber;
+		clickNumber++;
+		cat.clickNumber = clickNumber;
 	}
 
 
@@ -121,20 +126,14 @@ var view = {
 
 	createImageEventListeners: function(catImage){
 		catImage.addEventListener("click", function(){
-			var id = (catImage.id);
-			var i;
-			for (i in controller.currentCats){
-				if (id === controller.currentCats[i].imageId){
-					controller.increaseClickCount(controller.currentCats[i]);
-					view.renderClickCount(controller.currentCats[i]);
-					break;
-				}
-			}
+			var currentCat = controller.getCurrentCat();
+			controller.increaseClick(currentCat);
+			view.renderClickCount(currentCat.clickNumber);
 		});
 	},
 
-	renderClickCount: function(cat){
-		clickCount.innerHTML = cat.clickNumber;
+	renderClickCount: function(number){
+		clickCount.innerHTML = number;
 	},
 
 	listRender: function(){
@@ -156,8 +155,8 @@ var view = {
 		document.getElementById("form").style.display = "block";
 		var nameValue = document.getElementById("name").setAttribute("value", "1");
 		var urlValue = document.getElementById("url").setAttribute("value", "2");
-		var idValue = document.getElementById("id").setAttribute("value", "3");
-		var clicksValue = document.getElementById("clicks").setAttribute("value", "4");
+		//var idValue = document.getElementById("id").setAttribute("value", "3");
+		var clicksValue = document.getElementById("clicks").setAttribute("value", "3");
 	},
 
 	createAdminHandler: function(){
@@ -189,11 +188,12 @@ model.addCat("William", "images/cat5.jpg");
 //start program
 controller.init();
 
-
+/*
 console.log(document.getElementById("name"))
 console.log(document.getElementById("url"))
 console.log(document.getElementById("id"))
 console.log(document.getElementById("clicks"))
+*/
 /*
 if showForm = false
 	document.getElementById("form").style.display = "none";
