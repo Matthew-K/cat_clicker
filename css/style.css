@@ -86,3 +86,8 @@ input{
 #admin{
     margin-bottom: 10px;
 }
+
+.saved{
+    background-color: blue;
+    color: white;
+}

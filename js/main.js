@@ -30,6 +30,7 @@ var controller = {
 		view.removeAdminSettings();
 		view.createAdminHandler();
 		view.createCancelHandler();
+		view.createSaveHandler();
 	},
 
 	//input catList and return an array of strings as if they are buttons in HTML format
@@ -183,6 +184,17 @@ var view = {
 	createCancelHandler: function(){
 		document.getElementById("cancel").addEventListener("click", function(){
 			controller.turnOffAdmin();
+		});
+	},
+
+	createSaveHandler: function(){
+		document.getElementById("save").addEventListener("click", function(){
+			console.log("save clicked");
+			var form = document.getElementById("form");
+			form.classList.toggle("saved");
+			setTimeout(function(){
+				form.classList.toggle("saved");
+			},100);
 		});
 	}
 
