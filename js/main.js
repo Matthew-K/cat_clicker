@@ -14,6 +14,8 @@ var model = {
 	 	var addThis = new model.Cat(name, url);
 	 	model.catList.push(addThis);
 	},
+
+	showAdminSettings: false
 };
 
 
@@ -24,6 +26,8 @@ var controller = {
 	init: function(){
 		view.listRender();
 		view.imageAndClickRender();
+		view.removeAdminSettings();
+		view.createAdminHandler();
 	},
 
 	//input catList and return an array of strings as if they are buttons in HTML format
@@ -54,7 +58,20 @@ var controller = {
 		cat.clickNumber = number;
 	},
 
-	currentCats: model.catList
+	currentCats: model.catList,
+
+
+	turnOffAdmin: function(){
+		model.showAdminSettings = false;
+		view.removeAdminSettings();
+	},
+
+	turnOnAdmin: function(){
+		model.showAdminSettings = true;
+		view.renderAdminSettings();
+	}
+
+
 };
 
 
@@ -117,10 +134,26 @@ var view = {
 	imageAndClickRender: function(){
 		view.createButtonHandlers(controller.currentCats);
 		view.createImageEventListeners(view.catImage);
+	},
+
+	removeAdminSettings: function(){
+		document.getElementById("form").style.display = "none";
+	},
+
+	renderAdminSettings: function(){
+		document.getElementById("form").style.display = "block";
+	},
+
+	createAdminHandler: function(){
+		document.getElementById("admin").addEventListener("click", function(){
+			console.log("clicked");
+			controller.turnOnAdmin();
+		});
 	}
 
 
-	
+
+
 
 
 };
