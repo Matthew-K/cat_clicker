@@ -99,6 +99,7 @@ var view = {
 	catImage: document.getElementsByClassName("catImage")[0],
 	clickTitle: document.getElementById("nameInsert"),
 	clickCount: document.getElementById("clickCount"),
+	picTitle: document.getElementById("catNameTitle"),
 
 	//input html list and the id you want to insert list into
 	insertList: function(list, idNode){
@@ -112,16 +113,27 @@ var view = {
 				var id = document.getElementById(name);
 				id.addEventListener("click", (function() {
 					controller.setCurrentCat(j);
-					picTitle = document.getElementById("catNameTitle");
-					picTitle.innerHTML = name;
-					view.catImage.src = array[j].url;
-					view.catImage.id = array[j].imageId;
-					//var clickTitle = document.getElementById("nameInsert");
-					view.clickTitle.innerHTML = name;
-					view.clickCount.innerHTML = array[j].clickNumber;
+					var currentCat = controller.getCurrentCat();
+					view.renderPicTitle(currentCat);
+					view.renderImage(currentCat);
+					view.renderClickTitle(currentCat);
+					view.renderClickCount(currentCat.clickNumber);
+
 				}));
 			}(i));
 		}
+	},
+
+	renderClickTitle: function(cat){
+		view.clickTitle.innerHTML = cat.name;
+	},
+
+	renderImage: function(cat){
+		view.catImage.src = cat.url;
+	},
+
+	renderPicTitle: function(cat){	
+		view.picTitle.innerHTML = cat.name;
 	},
 
 	createImageEventListeners: function(catImage){
