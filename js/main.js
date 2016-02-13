@@ -28,6 +28,7 @@ var controller = {
 		view.imageAndClickRender();
 		view.removeAdminSettings();
 		view.createAdminHandler();
+		view.createCancelHandler();
 	},
 
 	//input catList and return an array of strings as if they are buttons in HTML format
@@ -146,8 +147,13 @@ var view = {
 
 	createAdminHandler: function(){
 		document.getElementById("admin").addEventListener("click", function(){
-			console.log("clicked");
 			controller.turnOnAdmin();
+		});
+	},
+
+	createCancelHandler: function(){
+		document.getElementById("cancel").addEventListener("click", function(){
+			controller.turnOffAdmin();
 		});
 	}
 
