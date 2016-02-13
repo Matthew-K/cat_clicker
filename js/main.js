@@ -165,17 +165,13 @@ var view = {
 	},
 
 	updateAdminSettings: function(cat){
-		var nameValue = document.getElementById("name").setAttribute("value", cat.name);
-		var urlValue = document.getElementById("url").setAttribute("value", cat.url);
-		var clicksValue = document.getElementById("clicks").setAttribute("value", cat.clickNumber);
+		document.getElementById('name').value = cat.name;
+		document.getElementById("url").value =  cat.url;
+		document.getElementById("clicks").value = cat.clickNumber;
 	},
 
 	renderAdminSettings: function(){
 		document.getElementById("form").style.display = "block";
-		//cat = controller.getCurrentCat();
-		//var nameValue = document.getElementById("name").setAttribute("value", cat.name);
-		//var urlValue = document.getElementById("url").setAttribute("value", cat.url);
-		//var clicksValue = document.getElementById("clicks").setAttribute("value", cat.clickNumber);
 	},
 
 	createAdminHandler: function(){
@@ -193,10 +189,8 @@ var view = {
 
 
 
-
-
-
 };
+
 
 //initial cats
 model.addCat("Fred", "images/cat.jpg");
