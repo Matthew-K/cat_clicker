@@ -7,7 +7,7 @@ var model = {
 		this.url = url;
 		this.clickNumber = 0;
 		//this.imageId = name.toLowerCase() + "Pic";
-		this.imageId = name;
+		this.listId = name;
 	},
 
 	//add cat to model.catList by using model.Cat constructor
@@ -50,7 +50,7 @@ var controller = {
 		for (var i = 0; i < array.length; i++){
 			listItem = document.createElement('li');
 			listItem.innerHTML = array[i];
-			listItem.id = model.catList[i].name;
+			listItem.id = model.catList[i].listId;
 			firstEl.appendChild(listItem);
 		}
 		return firstEl;		
@@ -93,9 +93,15 @@ var controller = {
 		model.currentCat.name = values.name;
 		model.currentCat.url = values.url;
 		model.currentCat.clickNumber = values.clickNumber;
-	}
+	},
 
+	changeListItemId: function(listItem, newId){
+		listItem.id = newId;
+	},
 
+	changeCatListId: function(cat, newListId){
+	cat.listId = cat.name;
+}
 };
 
 
@@ -209,12 +215,11 @@ var view = {
 	},
 
 	changeButtonName: function(cat){
-		var listItem = document.getElementById(cat.imageId);
+		var listItem = document.getElementById(cat.listId);
+		controller.changeListItemId(listItem, cat.name);
 		var button = listItem.firstElementChild;
 		button.innerHTML = cat.name;
-		listItem.id = cat.name;
-		cat.imageId = cat.name;
-		//fix model view controller regarding cat
+		controller.changeCatListId(cat, cat.name);
 	},
 
 	flashSave: function(){
@@ -233,10 +238,6 @@ var view = {
 		};
 		return values;
 	},
-
-
-
-
 };
 
 
@@ -250,63 +251,3 @@ model.addCat("William", "images/cat5.jpg");
 //start program
 controller.init();
 
-/*
-if showForm = false
-	document.getElementById("form").style.display = "none";
-else
-	document.getElementById("form").style.display = "block";
-*/
-
-/*
-click admin button
-	turn admin to true
-
-======================================================================
-
-model:
-	showForm = null
-
-======================================================================
-
-octopus:
-	init:
-		showForm = false
-
-	turnformtoTrueFunction:
-		showerForm = true;
-		view.render function
-
-	turnFormtoFalse:
-		showForm = false
-		view.render function
-
-	update stats:
-		take form ids and put them into the catList
-		showForm = False
-
-======================================================================
-
-view:
-	
-
-
-	render function:
-		if showForm = false
-			document.getElementById("form").style.display = "none";
-	else
-		document.getElementById("form").style.display = "block";
-
-	function:
-		add click listener to admin button
-			if clicked
-				octopus.turnFormtoTrueFunction = True
-
-	function: 
-		add click listeners to save and cancel buttons:
-			if save is clicked
-				octopus.updatestats
-			if cancel clicked:
-				octopus.turnFormtoFalse
-
-
-*/
