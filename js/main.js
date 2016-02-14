@@ -1,22 +1,18 @@
 /* ======= Model ======= */
 
 var model = {
+
 	catList: [],
+
 	Cat: function(name, url){
 		this.name = name;
 		this.url = url;
 		this.clickNumber = 0;
-		//this.imageId = name.toLowerCase() + "Pic";
 		this.listId = name;
 	},
 
-	//add cat to model.catList by using model.Cat constructor
-	addCat: function(name, url){
-	 	var addThis = new model.Cat(name, url);
-	 	model.catList.push(addThis);
-	},
-
 	currentCat: null,
+
 	showAdminSettings: false
 };
 
@@ -41,6 +37,11 @@ var controller = {
 			//renderImage: function(cat){
 		//view.catImage.src = cat.url;
 	
+	},
+	//add cat to model.catList by using model.Cat constructor
+	addCat: function(name, url){
+	 	var addThis = new model.Cat(name, url);
+	 	model.catList.push(addThis);
 	},
 
 	//input catList and return an array of strings as if they are buttons in HTML format
@@ -138,7 +139,7 @@ var view = {
 					controller.setCurrentCat(j);
 					var currentCat = controller.getCurrentCat();
 					view.render(currentCat);
-					adminView.updateAdminSettings(currentCat);
+					adminView.updateInputValues(currentCat);
 				}));
 			}(i));
 		}
@@ -172,7 +173,7 @@ var view = {
 			var currentCat = controller.getCurrentCat();
 			controller.increaseClick(currentCat);
 			view.renderClickCount(currentCat.clickNumber);
-			adminView.updateAdminSettings(currentCat);
+			adminView.updateInputValues(currentCat);
 		});
 	},
 
@@ -223,7 +224,7 @@ var adminView = {
 		document.getElementById("form").style.display = "none";
 	},
 
-	updateAdminSettings: function(cat){
+	updateInputValues: function(cat){
 		document.getElementById('name').value = cat.name;
 		document.getElementById("url").value =  cat.url;
 		document.getElementById("clicks").value = cat.clickNumber;
@@ -255,11 +256,11 @@ var adminView = {
 
 
 //initial cats
-model.addCat("Fred", "images/cat.jpg");
-model.addCat("Mittens", "images/cat2.jpg");
-model.addCat("Belleh", "images/cat3.jpg");
-model.addCat("Cotton", "images/cat4.jpg");
-model.addCat("William", "images/cat5.jpg");
+controller.addCat("Fred", "images/cat.jpg");
+controller.addCat("Mittens", "images/cat2.jpg");
+controller.addCat("Belleh", "images/cat3.jpg");
+controller.addCat("Cotton", "images/cat4.jpg");
+controller.addCat("William", "images/cat5.jpg");
 
 //start program
 controller.init();
