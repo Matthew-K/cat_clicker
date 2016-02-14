@@ -196,14 +196,6 @@ var view = {
 		controller.changeCatListId(cat, cat.name);
 	},
 
-	flashSave: function(){
-		var form = document.getElementById("form");
-		form.classList.toggle("saved");
-		setTimeout(function(){
-			form.classList.toggle("saved");
-		},100);
-	},
-
 	getInputValues: function(){
 		var values = {
 		name: document.getElementById('name').value, 
@@ -244,13 +236,21 @@ var adminView = {
 
 	createSaveHandler: function(){
 		document.getElementById("save").addEventListener("click", function(){
-			view.flashSave();
-			values = view.getInputValues();
+			adminView.flashSave();
+			var values = view.getInputValues();
 			controller.updateCurrentCat(values);
 			var cat = controller.getCurrentCat();
 			view.changeButtonName(cat);
 			view.render(cat);
 		});
+	},
+
+	flashSave: function(){
+		var form = document.getElementById("form");
+		form.classList.toggle("saved");
+		setTimeout(function(){
+			form.classList.toggle("saved");
+		},100);
 	}
 };
 
