@@ -28,10 +28,10 @@ var controller = {
 	init: function(){
 		view.listRender();
 		view.imageAndButtonRender();
-		view.removeAdminSettings();
-		view.createAdminHandler();
-		view.createCancelHandler();
-		view.createSaveHandler();
+		adminView.removeAdminSettings();
+		adminView.createAdminHandler();
+		adminView.createCancelHandler();
+		adminView.createSaveHandler();
 
 		model.currentCat = model.catList[0];
 		initCat = model.currentCat;
@@ -76,12 +76,12 @@ var controller = {
 
 	turnOffAdmin: function(){
 		model.showAdminSettings = false;
-		view.removeAdminSettings();
+		adminView.removeAdminSettings();
 	},
 
 	turnOnAdmin: function(){
 		model.showAdminSettings = true;
-		view.renderAdminSettings();
+		adminView.showAdminSettings();
 	},
 
 	setCurrentCat: function(position){
@@ -138,7 +138,7 @@ var view = {
 					controller.setCurrentCat(j);
 					var currentCat = controller.getCurrentCat();
 					view.render(currentCat);
-					view.updateAdminSettings(currentCat);
+					adminView.updateAdminSettings(currentCat);
 				}));
 			}(i));
 		}
@@ -172,7 +172,7 @@ var view = {
 			var currentCat = controller.getCurrentCat();
 			controller.increaseClick(currentCat);
 			view.renderClickCount(currentCat.clickNumber);
-			view.updateAdminSettings(currentCat);
+			adminView.updateAdminSettings(currentCat);
 		});
 	},
 
@@ -185,43 +185,6 @@ var view = {
 	imageAndButtonRender: function(){
 		view.createButtonHandlers(controller.currentCats);
 		view.createImageEventListeners(view.catImage);
-	},
-
-	removeAdminSettings: function(){
-		document.getElementById("form").style.display = "none";
-	},
-
-	updateAdminSettings: function(cat){
-		document.getElementById('name').value = cat.name;
-		document.getElementById("url").value =  cat.url;
-		document.getElementById("clicks").value = cat.clickNumber;
-	},
-
-	renderAdminSettings: function(){
-		document.getElementById("form").style.display = "block";
-	},
-
-	createAdminHandler: function(){
-		document.getElementById("admin").addEventListener("click", function(){
-			controller.turnOnAdmin();
-		});
-	},
-
-	createCancelHandler: function(){
-		document.getElementById("cancel").addEventListener("click", function(){
-			controller.turnOffAdmin();
-		});
-	},
-
-	createSaveHandler: function(){
-		document.getElementById("save").addEventListener("click", function(){
-			view.flashSave();
-			values = view.getInputValues();
-			controller.updateCurrentCat(values);
-			var cat = controller.getCurrentCat();
-			view.changeButtonName(cat);
-			view.render(cat);
-		});
 	},
 
 	changeButtonName: function(cat){
@@ -248,6 +211,46 @@ var view = {
 		};
 		return values;
 	},
+};
+
+var adminView = {
+
+	showAdminSettings: function(){
+		document.getElementById("form").style.display = "block";
+	},
+
+	removeAdminSettings: function(){
+		document.getElementById("form").style.display = "none";
+	},
+
+	updateAdminSettings: function(cat){
+		document.getElementById('name').value = cat.name;
+		document.getElementById("url").value =  cat.url;
+		document.getElementById("clicks").value = cat.clickNumber;
+	},
+
+	createAdminHandler: function(){
+		document.getElementById("admin").addEventListener("click", function(){
+			controller.turnOnAdmin();
+		});
+	},
+
+	createCancelHandler: function(){
+		document.getElementById("cancel").addEventListener("click", function(){
+			controller.turnOffAdmin();
+		});
+	},
+
+	createSaveHandler: function(){
+		document.getElementById("save").addEventListener("click", function(){
+			view.flashSave();
+			values = view.getInputValues();
+			controller.updateCurrentCat(values);
+			var cat = controller.getCurrentCat();
+			view.changeButtonName(cat);
+			view.render(cat);
+		});
+	}
 };
 
 
