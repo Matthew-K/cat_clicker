@@ -1,4 +1,4 @@
-/* ======= Model ======= */
+/* ============================    Model   ============================ */
 
 var model = {
 
@@ -17,7 +17,7 @@ var model = {
 };
 
 
-/* ======= Controller ======= */
+/* ============================    Controller    ============================ */
 
 var controller = {
 
@@ -32,10 +32,6 @@ var controller = {
 		model.currentCat = model.catList[0];
 		initCat = model.currentCat;
 		view.renderImage(initCat);
-
-
-			//renderImage: function(cat){
-		//view.catImage.src = cat.url;
 	
 	},
 	//add cat to model.catList by using model.Cat constructor
@@ -115,7 +111,7 @@ var controller = {
 };
 
 
-/* ======= View ======= */
+/* ============================    View    ============================ */
 
 var view = {
 
@@ -138,14 +134,23 @@ var view = {
 				id.addEventListener("click", (function() {
 					controller.setCurrentCat(j);
 					var currentCat = controller.getCurrentCat();
-					view.render(currentCat);
+					view.renderImageAndClickParts(currentCat);
 					adminView.updateInputValues(currentCat);
 				}));
 			}(i));
 		}
 	},
 
-	render: function(cat){
+	createImageEventListeners: function(catImage){
+		catImage.addEventListener("click", function(){
+			var currentCat = controller.getCurrentCat();
+			controller.increaseClick(currentCat);
+			view.renderClickCount(currentCat.clickNumber);
+			adminView.updateInputValues(currentCat);
+		});
+	},
+// ==============
+	renderImageAndClickParts: function(cat){
 		view.renderPicTitle(cat);
 		view.renderImage(cat);
 		view.renderClickTitle(cat);
@@ -167,15 +172,7 @@ var view = {
 	renderClickCount: function(number){
 		clickCount.innerHTML = number;
 	},
-
-	createImageEventListeners: function(catImage){
-		catImage.addEventListener("click", function(){
-			var currentCat = controller.getCurrentCat();
-			controller.increaseClick(currentCat);
-			view.renderClickCount(currentCat.clickNumber);
-			adminView.updateInputValues(currentCat);
-		});
-	},
+// ==============
 
 	listRender: function(){
 		var catButtons = controller.buttonReady(controller.currentCats);
@@ -205,6 +202,9 @@ var view = {
 		return values;
 	},
 };
+
+
+// ==============  Admin View  ==============
 
 var adminView = {
 
@@ -241,7 +241,7 @@ var adminView = {
 			controller.updateCurrentCat(values);
 			var cat = controller.getCurrentCat();
 			view.changeButtonName(cat);
-			view.render(cat);
+			view.renderImageAndClickParts(cat);
 		});
 	},
 
