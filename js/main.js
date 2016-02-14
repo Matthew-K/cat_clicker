@@ -32,6 +32,15 @@ var controller = {
 		view.createAdminHandler();
 		view.createCancelHandler();
 		view.createSaveHandler();
+
+		model.currentCat = model.catList[0];
+		initCat = model.currentCat;
+		view.renderImage(initCat);
+
+
+			//renderImage: function(cat){
+		//view.catImage.src = cat.url;
+	
 	},
 
 	//input catList and return an array of strings as if they are buttons in HTML format
@@ -128,26 +137,34 @@ var view = {
 				id.addEventListener("click", (function() {
 					controller.setCurrentCat(j);
 					var currentCat = controller.getCurrentCat();
-					view.renderPicTitle(currentCat);
-					view.renderImage(currentCat);
-					view.renderClickTitle(currentCat);
-					view.renderClickCount(currentCat.clickNumber);
+					view.render(currentCat);
 					view.updateAdminSettings(currentCat);
 				}));
 			}(i));
 		}
 	},
 
-	renderClickTitle: function(cat){
-		view.clickTitle.innerHTML = cat.name;
+	render: function(cat){
+		view.renderPicTitle(cat);
+		view.renderImage(cat);
+		view.renderClickTitle(cat);
+		view.renderClickCount(cat.clickNumber);
+	},
+
+	renderPicTitle: function(cat){	
+		view.picTitle.innerHTML = cat.name;
 	},
 
 	renderImage: function(cat){
 		view.catImage.src = cat.url;
 	},
 
-	renderPicTitle: function(cat){	
-		view.picTitle.innerHTML = cat.name;
+	renderClickTitle: function(cat){
+		view.clickTitle.innerHTML = cat.name;
+	},
+
+	renderClickCount: function(number){
+		clickCount.innerHTML = number;
 	},
 
 	createImageEventListeners: function(catImage){
@@ -157,10 +174,6 @@ var view = {
 			view.renderClickCount(currentCat.clickNumber);
 			view.updateAdminSettings(currentCat);
 		});
-	},
-
-	renderClickCount: function(number){
-		clickCount.innerHTML = number;
 	},
 
 	listRender: function(){
@@ -206,11 +219,8 @@ var view = {
 			values = view.getInputValues();
 			controller.updateCurrentCat(values);
 			var cat = controller.getCurrentCat();
-			view.renderImage(cat);
 			view.changeButtonName(cat);
-			view.renderPicTitle(cat);
-			view.renderClickTitle(cat);
-			view.renderClickCount(cat.clickNumber);
+			view.render(cat);
 		});
 	},
 
