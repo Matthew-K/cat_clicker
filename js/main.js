@@ -17,22 +17,15 @@ var model = {
 };
 
 
+
 /* ============================    Controller    ============================ */
 
 var controller = {
 
 	init: function(){
-		view.createCatButtons();
-		view.createButtonClickHandlers(controller.currentCats);
-		view.createImageClickHandlers(view.catImage);
-		adminView.removeAdminSettings();
-		adminView.createAdminHandler();
-		adminView.createCancelHandler();
-		adminView.createSaveHandler();
-
-		//model.currentCat = model.catList[0];
-		//initCat = model.currentCat;
-		//view.renderImage(initCat);
+		model.currentCat = model.catList[0];
+		view.init();
+		adminView.init();
 	},
 
 	//add cat to model.catList by using model.Cat constructor
@@ -106,21 +99,40 @@ var controller = {
 };
 
 
+
 /* ============================    View    ============================ */
 
+
+/* ==============  View  ============== */
+
 var view = {
+
+	init: function(){
+		view.createCatButtons();
+		view.createButtonClickHandlers(controller.currentCats);
+		view.createImageClickHandlers(view.catImage);
+		view.renderImageAndClickParts(controller.getCurrentCat());
+	},
 
 	catButtons: document.getElementById('catButtons'),
 	imageTitle: document.getElementById("imageTitle"),
 	catImage: document.getElementById("catImage"),
 	clickTitle: document.getElementById("nameInsert"),
 	clickCount: document.getElementById("clickCount"),
-	
+
+
+/* ----- Related to list of cat buttons ----- */
 
 	//input html list and the id you want to insert list into
 	insertList: function(list, idNode){
 		idNode.appendChild(list);	
 	},
+
+	createCatButtons: function(){
+		var catButtonsHTML = controller.buttonReady(controller.currentCats);
+		var catButtonList = controller.createUlList(catButtonsHTML);
+		this.insertList(catButtonList, this.catButtons);
+	},	
 
 	createButtonClickHandlers: function(array){
 		for (var i = 0; i < array.length; i++){
@@ -137,15 +149,17 @@ var view = {
 		}
 	},
 
-	createImageClickHandlers: function(catImage){
-		catImage.addEventListener("click", function(){
-			var currentCat = controller.getCurrentCat();
-			controller.increaseClick(currentCat);
-			view.renderClickCount(currentCat.clickNumber);
-			adminView.updateInputValues(currentCat);
-		});
+	changeCatButtonText: function(cat){
+		var listItem = document.getElementById(cat.listId);
+		controller.changeListItemId(listItem, cat.name);
+		var button = listItem.firstElementChild;
+		button.innerHTML = cat.name;
+		controller.changeCatListId(cat, cat.name);
 	},
-// ==============
+
+
+/* ----- Related to image, image title, click count, and phrase above click count ----- */
+
 	renderImageAndClickParts: function(cat){
 		view.renderImageTitle(cat);
 		view.renderImage(cat);
@@ -168,20 +182,14 @@ var view = {
 	renderClickCount: function(number){
 		clickCount.innerHTML = number;
 	},
-// ==============
 
-	createCatButtons: function(){
-		var catButtonsHTML = controller.buttonReady(controller.currentCats);
-		var catButtonList = controller.createUlList(catButtonsHTML);
-		this.insertList(catButtonList, this.catButtons);
-	},
-
-	changeCatButtonText: function(cat){
-		var listItem = document.getElementById(cat.listId);
-		controller.changeListItemId(listItem, cat.name);
-		var button = listItem.firstElementChild;
-		button.innerHTML = cat.name;
-		controller.changeCatListId(cat, cat.name);
+	createImageClickHandlers: function(catImage){
+		catImage.addEventListener("click", function(){
+			var currentCat = controller.getCurrentCat();
+			controller.increaseClick(currentCat);
+			view.renderClickCount(currentCat.clickNumber);
+			adminView.updateInputValues(currentCat);
+		});
 	}
 
 };
@@ -190,6 +198,14 @@ var view = {
 // ==============  Admin View  ==============
 
 var adminView = {
+
+	init: function(){
+		adminView.removeAdminSettings();
+		adminView.createAdminHandler();
+		adminView.createCancelHandler();
+		adminView.createSaveHandler();
+		adminView.updateInputValues(controller.getCurrentCat());
+	},
 
 	showAdminSettings: function(){
 		document.getElementById("form").style.display = "block";
