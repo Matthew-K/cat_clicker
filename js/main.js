@@ -12,8 +12,6 @@ var model = {
 	},
 
 	currentCat: null,
-
-	showAdminSettings: false
 };
 
 
@@ -64,16 +62,6 @@ var controller = {
 
 	setCurrentCat: function(position){
 		model.currentCat = model.catList[position];
-	},
-
-	turnOffAdmin: function(){
-		model.showAdminSettings = false;
-		adminView.removeAdminSettings();
-	},
-
-	turnOnAdmin: function(){
-		model.showAdminSettings = true;
-		adminView.showAdminSettings();
 	},
 
 	increaseClick: function(cat){
@@ -232,13 +220,13 @@ var adminView = {
 
 	createAdminHandler: function(){
 		document.getElementById("admin").addEventListener("click", function(){
-			controller.turnOnAdmin();
+			adminView.showAdminSettings();
 		});
 	},
 
 	createCancelHandler: function(){
 		document.getElementById("cancel").addEventListener("click", function(){
-			controller.turnOffAdmin();
+			adminView.removeAdminSettings();
 		});
 	},
 
@@ -250,11 +238,12 @@ var adminView = {
 			var cat = controller.getCurrentCat();
 			view.changeCatButtonText(cat);
 			view.renderImageAndClickParts(cat);
+			adminView.removeAdminSettings();
 		});
 	},
 
 	flashSave: function(){
-		var form = document.getElementById("form");
+		var form = document.getElementById("admin");
 		form.classList.toggle("saved");
 		setTimeout(function(){
 			form.classList.toggle("saved");
