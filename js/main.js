@@ -32,26 +32,16 @@ var controller = {
 	 	model.catList.push(addThis);
 	},
 
-	//input catList and return an array of strings as if they are buttons in HTML format
 	buttonReady: function(array){
 		buttons = [];
 		for (var i = 0; i < array.length; i++){
-			newButton = "<button type=\"button\">" + array[i].name + "</button>";
+			newButton = document.createElement("button");
+			newButton.innerHTML = array[i].name;
+			newButton.className = "btn btn-primary";
+			newButton.id = model.catList[i].listId;
 			buttons.push(newButton);
 		}
 		return buttons;
-	},
-
-	//input array of button ready strings and return an HTML list. Each button gets an id corresponding to the cat's name
-	createUlList: function(array){
-		firstEl = document.createElement('ul');
-		for (var i = 0; i < array.length; i++){
-			listItem = document.createElement('li');
-			listItem.innerHTML = array[i];
-			listItem.id = model.catList[i].listId;
-			firstEl.appendChild(listItem);
-		}
-		return firstEl;		
 	},
 
 	currentCats: model.catList,
@@ -113,12 +103,13 @@ var view = {
 
 	//input html list and the id you want to insert list into
 	insertList: function(list, idNode){
-		idNode.appendChild(list);	
+		for (var i = 0; i < list.length; i++){
+			idNode.appendChild(list[i]);
+		}	
 	},
 
 	createCatButtons: function(){
-		var catButtonsHTML = controller.buttonReady(controller.currentCats);
-		var catButtonList = controller.createUlList(catButtonsHTML);
+		catButtonList = controller.buttonReady(controller.currentCats);
 		this.insertList(catButtonList, this.catButtons);
 	},	
 
