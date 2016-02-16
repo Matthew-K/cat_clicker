@@ -4,43 +4,63 @@
 <head>
 	<title>Cat Clicker</title>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.6-dist/css/bootstrap.css">
+	<!-- <link rel="stylesheet" type="text/css" href="bootstrap-3.3.6-dist/css/bootstrap.css"> -->
 	<script async src="js/main.js"></script>
 </head>
 
 <body>
-	<div>
-		<div class= "row">
+
+
+<div class="grid">
+
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-6">  
 			<h1>Cat Clicker</h1>
-		</div>
-		<div class="row">
-			<div id="catButtons" class="col-3"></div>
-			<div class="col-5">
-				<h2 id="imageTitle"></h2>
-				<img id="catImage">		
-					<button id="admin" >Admin</button>	
-					<div id="form">
-						<form>
-						  	Name:</br>
-						  	<input id="name" type="input" name="name"git ></br>
-						  	Image URL:</br>
-						  	<input id="url" type="text" name="url"></br>
-						  	<!-- Image ID:</br> -->
-						  	<!-- <input id="id" type="text" name="id"></br> -->
-						  	Number of Clicks:</br>
-							<input id="clicks"type="number" name="clicks"></br>
-						</form>
-						<button id="save">Save</button>
-						<button id="cancel">Cancel</button>
-					</div>
-			</div>
-			<div id="scores" class="col-4 text-center">
-				<h2 id="clickTitle">Number of clicks for <span id="nameInsert"></span></h2>
-				<p id="clickCount"></p>
-			</div>
-		</div>
+		</div> 
+		<div class="col-3"></div>
 	</div>
+	
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-6">
+			<div class="row">
+				<div class="col-6">
+					<p id="imageTitle"></p>
+				</div>
+				<div class="col-6 text-right">
+					<p id="clickCount"></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-3"></div>
+	</div>
+
+
+	<div class="row">
+		<div id="catButtons" class="col-3"></div>
+		<div class="col-6">
+			<img id="catImage">		
+			<button id="admin" >Admin</button>	
+			<div id="form">
+				<form>
+				  	Name:</br>
+				  	<input id="name" type="input" name="name"git ></br>
+				  	Image URL:</br>
+				  	<input id="url" type="text" name="url"></br>
+				  	Number of Clicks:</br>
+					<input id="clicks"type="number" name="clicks"></br>
+				</form>
+				<button id="save">Save</button>
+				<button id="cancel">Cancel</button>
+			</div>
+		</div>
+		<div class="col-3"></div>
+	</div>
+
+</div>
 </body>
 
 </html>

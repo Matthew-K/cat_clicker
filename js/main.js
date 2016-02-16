@@ -151,7 +151,7 @@ var view = {
 	renderImageAndClickParts: function(cat){
 		view.renderImageTitle(cat);
 		view.renderImage(cat);
-		view.renderClickTitle(cat);
+		//view.renderClickTitle(cat);
 		view.renderClickCount(cat.clickNumber);
 	},
 
