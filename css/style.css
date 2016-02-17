@@ -45,3 +45,12 @@ input{
     text-align: right;
 }
 
+img:hover {
+    cursor: pointer;
+    -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
+    filter: brightness(110%);
+}
+
+img:active {
+    border: solid 2px #286090;
+}
