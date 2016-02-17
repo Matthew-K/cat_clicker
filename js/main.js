@@ -129,9 +129,9 @@ var view = {
 	},
 
 	changeCatButtonText: function(cat){
-		var listItem = document.getElementById(cat.listId);
-		controller.changeListItemId(listItem, cat.name);
-		var button = listItem.firstElementChild;
+		var button = document.getElementById(cat.listId);
+		controller.changeListItemId(button, cat.name);
+		//var button = listItem.firstElementChild;
 		button.innerHTML = cat.name;
 		controller.changeCatListId(cat, cat.name);
 	},
