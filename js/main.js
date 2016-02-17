@@ -90,6 +90,10 @@ var view = {
 		view.createButtonClickHandlers(controller.currentCats);
 		view.createImageClickHandlers(view.catImage);
 		view.renderImageAndClickParts(controller.getCurrentCat());
+		view.activeThis();
+		//get first cat button and make it appear active
+		firstCatButton = document.getElementById(controller.getCurrentCat().listId);
+		firstCatButton.classList.add("active");
 	},
 
 	catButtons: document.getElementById('catButtons'),
@@ -128,6 +132,24 @@ var view = {
 		}
 	},
 
+	activeThis: function(){
+		var buttonsTest = document.querySelectorAll(".btn-primary");
+		for (var i = 0; i < buttonsTest.length; i++){
+			buttonsTest[i].addEventListener("click", function(){
+				this.classList.add('active');
+				view.removeActive(this, buttonsTest);
+			});
+		}
+	},
+
+	removeActive: function(keep, buttons){
+		for (var i = 0; i < buttons.length; i++){
+			if (buttons[i] !== keep){
+				buttons[i].classList.remove('active');
+			}
+		}
+	},
+
 	changeCatButtonText: function(cat){
 		var button = document.getElementById(cat.listId);
 		controller.changeListItemId(button, cat.name);
@@ -142,7 +164,6 @@ var view = {
 	renderImageAndClickParts: function(cat){
 		view.renderImageTitle(cat);
 		view.renderImage(cat);
-		//view.renderClickTitle(cat);
 		view.renderClickCount(cat.clickNumber);
 	},
 
@@ -250,6 +271,9 @@ controller.addCat("Belleh", "images/cat3.jpg");
 controller.addCat("Cotton", "images/cat4.jpg");
 controller.addCat("William", "images/cat5.jpg");
 
+
 //start program
 controller.init();
+
+
 
