@@ -47,10 +47,14 @@ input{
 
 img:hover {
     cursor: pointer;
-    -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
-    filter: brightness(110%);
+    -webkit-transform: scale(.99);
+    transform: scale(.99);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
 }
 
 img:active {
-    border: solid 2px #286090;
+    border: solid 3px #286090;
+    -webkit-transition: 0s ease-in-out;
+    transition: 0s ease-in-out;
 }
