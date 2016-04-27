@@ -13,16 +13,17 @@
 
 <body>
 
-
-<div class="container">
-
-	<div class="row">
+<div class="row header">
+	<div class="container">
 		<div class="col-xs-3"></div>
-		<div class="col-xs-9">  
+		<div class="col-xxs-12 col-xs-9 col-sm-9">  
 			<h1>Cat Clicker</h1>
 		</div> 
 	</div>
-	
+</div>
+
+<div class="container">
+
 	<div class="row">
 		<div class="col-xs-3"></div>
 		<div class="col-xs-9 col-sm-6">
@@ -38,30 +39,30 @@
 		<div class="col-sm-3"></div>
 	</div>
 
-
 	<div class="row">
 		<div class="col-xs-3 text-right">
 			<div id="catButtons"class="btn-group-vertical"></div>
-		</div>
-		<div class="col-xs-9 col-sm-6">
-			<img id="catImage">		
-			<button id="admin">Admin</button>	
-			<div id="form">
-				<form>
-				  	Name:</br>
-				  	<input id="name" type="input" name="name"git ></br>
-				  	Image URL:</br>
-				  	<input id="url" type="text" name="url"></br>
-				  	Number of Clicks:</br>
-					<input id="clicks"type="number" name="clicks"></br>
-				</form>
-				<button id="save">Save</button>
-				<button id="cancel">Cancel</button>
-			</div>
+	</div>
+	
+	<div class="adminBox col-xs-9 col-sm-6">
+		<img id="catImage">		
+		<button id="admin">Admin</button>	
+		<div id="form">
+			<form>
+			  	<label>Name:</label></br>
+			  	<input id="name" type="input" name="name"git ></br>
+			  	<label>Image URL:</label></br>
+			  	<input id="url" type="text" name="url"></br>
+			  	<label>Number of Clicks:</label></br>
+				<input id="clicks"type="number" name="clicks"></br>
+			</form>
+			<button id="save">Save</button>
+			<button id="cancel">Cancel</button>
 		</div>
 	</div>
 
-</div>
+</div> 
+
 </body>
 
 </html>
