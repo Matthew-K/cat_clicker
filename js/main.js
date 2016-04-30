@@ -2,7 +2,33 @@
 
 var model = {
 
-	catList: [],
+	catList: [
+		{
+			name: "Fred", 
+			url: "images/cat.jpg", 
+			clickNumber: 0, 
+			listId: "Fred"}, 
+		{
+			name: "Mittens", 
+			url: "images/cat2.jpg", 
+			clickNumber: 0, 
+			listId: "Mittens"}, 
+		{
+			name: "Belleh", 
+			url: "images/cat3.jpg", 
+			clickNumber: 0, 
+			listId: "Belleh"}, 
+		{
+			name: "Cotton", 
+			url: "images/cat4.jpg", 
+			clickNumber: 0, 
+			listId: "Cotton"}, 
+		{
+			name: "William", 
+			url: "images/cat5.jpg", 
+			clickNumber: 0, 
+			listId: "William"}
+	],
 
 	Cat: function(name, url){
 		this.name = name;
@@ -263,14 +289,9 @@ var adminView = {
 };
 
 
-//initial cats
-controller.addCat("Fred", "images/cat.jpg");
-controller.addCat("Mittens", "images/cat2.jpg");
-controller.addCat("Belleh", "images/cat3.jpg");
-controller.addCat("Cotton", "images/cat4.jpg");
-controller.addCat("William", "images/cat5.jpg");
-controller.addCat("Twix", "images/twix.jpg" );
 
+// Add Twix to  model.catList. He's a dog, but that's alright. 
+controller.addCat("Twix", "images/twix.jpg" );
 
 //start program
 controller.init();
