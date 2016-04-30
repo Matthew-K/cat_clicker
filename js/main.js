@@ -269,6 +269,7 @@ controller.addCat("Mittens", "images/cat2.jpg");
 controller.addCat("Belleh", "images/cat3.jpg");
 controller.addCat("Cotton", "images/cat4.jpg");
 controller.addCat("William", "images/cat5.jpg");
+controller.addCat("Twix", "images/twix.jpg" );
 
 
 //start program
