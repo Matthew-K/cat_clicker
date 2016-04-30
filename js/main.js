@@ -2,6 +2,7 @@
 
 var model = {
 
+	// Array with all the cats
 	catList: [
 		{
 			name: "Fred", 
@@ -30,6 +31,7 @@ var model = {
 			listId: "William"}
 	],
 
+	// Object constructor for a cat. Input the cat's name and image url. Constructor includes name, image url, the clicknumber(starts at 0), and the id that will be used in the html(same as cat's name)
 	Cat: function(name, url){
 		this.name = name;
 		this.url = url;
@@ -37,6 +39,7 @@ var model = {
 		this.listId = name;
 	},
 
+	// Will be set once program is initialized
 	currentCat: null,
 };
 
@@ -45,18 +48,20 @@ var model = {
 
 var controller = {
 
+	// Initializes program. Will set the current cat as the first cat in the model.catList array, and will initialize the view and the admin view
 	init: function(){
 		model.currentCat = model.catList[0];
 		view.init();
 		adminView.init();
 	},
 
-	//add cat to model.catList by using model.Cat constructor
+	// add cat to model.catList by using model.Cat constructor
 	addCat: function(name, url){
 	 	var addThis = new model.Cat(name, url);
 	 	model.catList.push(addThis);
 	},
 
+	// Will take an array of cats and create an array of buttons for them
 	buttonReady: function(array){
 		buttons = [];
 		for (var i = 0; i < array.length; i++){
@@ -69,35 +74,42 @@ var controller = {
 		return buttons;
 	},
 
+	// Sets current cats as the ones in model.catList
 	currentCats: model.catList,
 
+	// Retrieves the current cat 
 	getCurrentCat: function(){
 		return model.currentCat;
 	},
 
+	// Sets the current cat depending on what index you input
 	setCurrentCat: function(position){
 		model.currentCat = model.catList[position];
 	},
 
+	// Increases the click count for specificed cat
 	increaseClick: function(cat){
 		var clickNumber = cat.clickNumber;
 		clickNumber++;
 		cat.clickNumber = clickNumber;
 	},
 
+	// Updates model.currentCat. This is only used when saving settings from the admin form for a specific cat.
 	updateCurrentCat: function(values){
 		model.currentCat.name = values.name;
 		model.currentCat.url = values.url;
 		model.currentCat.clickNumber = values.clickNumber;
 	},
 
+	// Changes id of the button 
 	changeListItemId: function(listItem, newId){
 		listItem.id = newId;
 	},
 
+	// Changes value of the listId key for a cat
 	changeCatListId: function(cat, newListId){
-	cat.listId = cat.name;
-}
+		cat.listId = cat.name;
+	}
 
 };
 
@@ -110,17 +122,20 @@ var controller = {
 
 var view = {
 
+	//Initializes view by creating the buttons, click handlers, and headings
 	init: function(){
 		view.createCatButtons();
 		view.createButtonClickHandlers(controller.currentCats);
 		view.createImageClickHandlers(view.catImage);
 		view.renderImageAndClickParts(controller.getCurrentCat());
-		view.activeThis();
+
 		//get first cat button and make it appear active
+		view.activeThis();
 		firstCatButton = document.getElementById(controller.getCurrentCat().listId);
 		firstCatButton.classList.add("active");
 	},
 
+	// Variables that can be used 
 	catButtons: document.getElementById('catButtons'),
 	imageTitle: document.getElementById("imageTitle"),
 	catImage: document.getElementById("catImage"),
@@ -137,11 +152,13 @@ var view = {
 		}	
 	},
 
+	// Creates the buttons using the buttons in the array created by controller.buttonReady
 	createCatButtons: function(){
 		catButtonList = controller.buttonReady(controller.currentCats);
 		this.insertList(catButtonList, this.catButtons);
 	},	
 
+	//Loops through an array of cats and adds a click handler to the button that corresponds with their id
 	createButtonClickHandlers: function(array){
 		for (var i = 0; i < array.length; i++){
 			(function(j){
@@ -157,6 +174,7 @@ var view = {
 		}
 	},
 
+	// Makes button active
 	activeThis: function(){
 		var buttonsTest = document.querySelectorAll(".btn-primary");
 		for (var i = 0; i < buttonsTest.length; i++){
@@ -167,6 +185,7 @@ var view = {
 		}
 	},
 
+	// Makes button not active
 	removeActive: function(keep, buttons){
 		for (var i = 0; i < buttons.length; i++){
 			if (buttons[i] !== keep){
@@ -175,17 +194,17 @@ var view = {
 		}
 	},
 
+	// Change text of cat button
 	changeCatButtonText: function(cat){
 		var button = document.getElementById(cat.listId);
 		controller.changeListItemId(button, cat.name);
-		//var button = listItem.firstElementChild;
 		button.innerHTML = cat.name;
 		controller.changeCatListId(cat, cat.name);
 	},
 
 
 /* ----- Related to image, image title, click count, and phrase above click count ----- */
-
+	
 	renderImageAndClickParts: function(cat){
 		view.renderImageTitle(cat);
 		view.renderImage(cat);
@@ -208,6 +227,7 @@ var view = {
 		clickCount.innerHTML = number;
 	},
 
+	// Creates click handlers for the images
 	createImageClickHandlers: function(catImage){
 		catImage.addEventListener("click", function(){
 			var currentCat = controller.getCurrentCat();
@@ -224,6 +244,7 @@ var view = {
 
 var adminView = {
 
+	// Initializes admin view 
 	init: function(){
 		adminView.removeAdminSettings();
 		adminView.createAdminHandler();
@@ -232,14 +253,17 @@ var adminView = {
 		adminView.updateInputValues(controller.getCurrentCat());
 	},
 
+	// Displays the admin form 
 	showAdminSettings: function(){
 		document.getElementById("form").style.display = "block";
 	},
 
+	// Removes the display for the admin form 
 	removeAdminSettings: function(){
 		document.getElementById("form").style.display = "none";
 	},
 
+	// Collects input values in the admin form
 	getInputValues: function(){
 		var values = {
 		name: document.getElementById('name').value, 
@@ -249,24 +273,28 @@ var adminView = {
 		return values;
 	},
 
+	// Updates input values of admin form based on what cat serves as the input
 	updateInputValues: function(cat){
 		document.getElementById('name').value = cat.name;
 		document.getElementById("url").value =  cat.url;
 		document.getElementById("clicks").value = cat.clickNumber;
 	},
 
+	// Click handler for the "admin" button
 	createAdminHandler: function(){
 		document.getElementById("admin").addEventListener("click", function(){
 			adminView.showAdminSettings();
 		});
 	},
 
+	// Click handler for the "cancel" button
 	createCancelHandler: function(){
 		document.getElementById("cancel").addEventListener("click", function(){
 			adminView.removeAdminSettings();
 		});
 	},
 
+	// Click handler for the "save" button
 	createSaveHandler: function(){
 		document.getElementById("save").addEventListener("click", function(){
 			adminView.flashSave();
@@ -279,6 +307,7 @@ var adminView = {
 		});
 	},
 
+	// Makes admin button flash blue
 	flashSave: function(){
 		var form = document.getElementById("admin");
 		form.classList.toggle("saved");
@@ -287,7 +316,6 @@ var adminView = {
 		},100);
 	}
 };
-
 
 
 // Add Twix to  model.catList. He's a dog, but that's alright. 
