@@ -317,10 +317,6 @@ var adminView = {
 	}
 };
 
-
-// Add Twix to  model.catList. He's a dog, but that's alright. 
-controller.addCat("Twix", "images/twix.jpg" );
-
 //start program
 controller.init();
 
